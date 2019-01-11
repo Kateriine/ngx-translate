@@ -1,12 +1,12 @@
 {
-  "home":"Home",
+  "home":"Onthaal",
   "about": {
-    "title":"About",
+    "title":"Over ons",
     "text":"About text",
-    "greetings":"Hello {value}"
+    "greetings":"Dag {value}"
   },
   "terms": {
-    "title":"Terms",
+    "title":"Voorwaarding",
     "text":"Long and boring text<br>liloulol"
   }
  }

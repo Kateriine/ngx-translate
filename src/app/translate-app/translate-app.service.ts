@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
 export class TranslateAppService {
   private _locale: string;
   private _lang: string;
+  // Localedate is the locale string used for dateFormatPipe: it has to be loaded if it doesn't exist, 
+  // then if we change the language it has to be changed only after registerLocaleData changes
+  private _localeDate: string;
 
   // if you add langs, don't forget to add it in function registerLocaleData > webpackInclude
   private settings: any = {
@@ -24,7 +27,11 @@ export class TranslateAppService {
     }
     else {
       this._locale = this.settings.defaultLocale;
-    }this._lang = this.translate.currentLang = this._locale.substring(0, this._locale.indexOf('-'));
+    }
+    if(!this._localeDate){
+      this._localeDate = this._locale;
+    }
+    this._lang = this.translate.currentLang = this._locale.substring(0, this._locale.indexOf('-'));
     this.translate.setDefaultLang(this.translate.currentLang);
   }
 
@@ -35,6 +42,10 @@ export class TranslateAppService {
     return this._lang;
   }
 
+  public get localeDate(){
+    return this._localeDate;
+  }
+
   public changeLanguage(locale) {
     localStorage.setItem('appLocale', locale);
     this.setTranslate()
@@ -42,7 +53,10 @@ export class TranslateAppService {
   public setTranslate() {
     this.initTranslate()
     this.use(this.translate.currentLang).subscribe(res =>{
-      this.registerLocaleData(this._locale)
+      this.registerLocaleData(this._locale).then(res => {
+        this._localeDate = this._locale;
+        console.log(this.translate);
+      })
     });
   }
   public use(lang: string): Observable<{}> {

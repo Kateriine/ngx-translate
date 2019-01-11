@@ -24,6 +24,8 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^2.5.4",
+    "localize-router": "^2.0.0-RC.2",
+    "localize-router-http-loader": "^1.0.2",
     "messageformat": "^2.0.5",
     "ngx-translate-messageformat-compiler": "^4.4.0",
     "rxjs": "^6.3.3",
