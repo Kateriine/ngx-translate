@@ -1,0 +1,14 @@
+<div>
+    {{today | date:'fullDate'}}
+    {{today | dateFormat }}
+  <!-- translation: translation pipe -->
+  <h1>{{ 'about.greetings' | translate:{value: 'Kat'} }}</h1>
+  <p></p>{{ 'about.title' | translate }}
+
+  <!-- translation: directive (key as attribute)-->
+  <p [translate]="'about.title'"></p>
+  <!--<div [translate]="'about.greetings'" [translateParams]="{value: 'title'}"></div>-->
+  <div translate [translateParams]="{value: 'Kat'}">about.greetings</div>
+
+  <div [innerHTML]="'about.greetings' | translate:{value: 'Kat'}"></div>
+</div>

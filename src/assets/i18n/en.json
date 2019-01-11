@@ -1,0 +1,12 @@
+{
+  "home":"Home",
+  "about": {
+    "title":"About",
+    "text":"About text",
+    "greetings":"Hello {value}"
+  },
+  "terms": {
+    "title":"Terms",
+    "text":"Long and boring text<br>liloulol"
+  }
+ }

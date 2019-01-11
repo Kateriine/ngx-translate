@@ -1,13 +1,14 @@
 {
-  "name": "ng-translate",
+  "name": "ngx-translate",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build run extract-translations",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "extract-translations": "ngx-translate-extract --input ./src --output ./src/assets/i18n/*.json --clean --sort --format namespaced-json --marker _"
   },
   "private": true,
   "dependencies": {
@@ -20,8 +21,12 @@
     "@angular/platform-browser": "~7.0.0-beta.0",
     "@angular/platform-browser-dynamic": "~7.0.0-beta.0",
     "@angular/router": "~7.0.0-beta.0",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^2.5.4",
-    "rxjs": "~6.3.0",
+    "messageformat": "^2.0.5",
+    "ngx-translate-messageformat-compiler": "^4.4.0",
+    "rxjs": "^6.3.3",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -29,6 +34,7 @@
     "@angular/cli": "~7.0.0-beta.2",
     "@angular/compiler-cli": "~7.0.0-beta.0",
     "@angular/language-service": "~7.0.0-beta.0",
+    "@biesbjerg/ngx-translate-extract": "^2.3.4",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
@@ -43,6 +49,6 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.0.1"
+    "typescript": "3.1.6"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "home":"Accueil",
+  "about": {
+    "title":"A propos",
+    "text":"Texte a propos",
+    "greetings":"Salut {value}"
+  },
+  "terms": {
+    "title":"Conditions",
+    "text":"Texte long et ennuyeux<br>liloulol"
+  }
+ }

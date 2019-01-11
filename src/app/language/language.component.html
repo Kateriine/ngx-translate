@@ -1,0 +1,9 @@
+<div>
+  <button *ngIf="currentLang !== 'en'" mat-menu-item (click)="onChangeLanguage('en-GB')">EN</button>
+  <button *ngIf="currentLang !== 'fr'"  mat-menu-item (click)="onChangeLanguage('fr-BE')">FR</button>
+  <button *ngIf="currentLang !== 'nl'"  mat-menu-item (click)="onChangeLanguage('nl-BE')">NL</button>
+</div>
+
+<button>
+  {{currentLang}}
+</button>
