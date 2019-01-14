@@ -1,4 +1,7 @@
 <div>
+    <a [routerLink]="'/' | localize" [routerLinkActive]="['router-link-active']">
+      {{ 'home' | translate }}
+    </a>
     {{today | date:'fullDate'}}
     {{today | dateFormat }}
   <!-- translation: translation pipe -->

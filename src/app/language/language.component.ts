@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateAppService } from '../translate-app/translate-app.service';
-import { TranslateService } from '@ngx-translate/core';
+import { LocalizeRouterService } from 'localize-router';
+import { AppConfig } from '../configs/app.config';
 
 @Component({
   selector: 'app-language',
@@ -9,23 +10,25 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LanguageComponent implements OnInit {
   currentLang: string;
-  constructor(private translate: TranslateAppService) { 
-    
-    // this.currentLang = translate.lang;
+  private _config: any;
+  constructor(
+    private translate: TranslateAppService, 
+    private localize: LocalizeRouterService
+    ) { 
   }
 
   ngOnInit() {
+    this._config = AppConfig.i18n.availableLanguages;
+    // if loaded url contains different language than the default one, we load translation
+    if(this.localize.parser.currentLang && 
+      (this.translate.lang !== this.localize.parser.currentLang)){
+      let newLang = this._config.filter((lang: any) => lang.code === this.localize.parser.currentLang);
+      this.onChangeLanguage(newLang[0].locale)
+    }
   }
   onChangeLanguage(locale) {
     this.translate.changeLanguage(locale);
-    // this.translate.localeInitializer(locale).then(() => {
-    //   this.translate.use(locale).subscribe();
-    //   this.currentLang = this.translate.lang;
-    //   // this.translate.eventRefresh();
-
-    // })
+    this.localize.changeLanguage(this.translate.lang);
   }
-  
-  
 
 }

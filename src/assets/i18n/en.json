@@ -8,5 +8,8 @@
   "terms": {
     "title":"Terms",
     "text":"Long and boring text<br>liloulol"
-  }
+  },
+
+  "ROUTES.about": "about-us",
+  "ROUTES.terms": "terms-of-service"
  }

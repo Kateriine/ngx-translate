@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector, Inject, forwardRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { registerLocaleData } from '@angular/common';
 import { Observable } from 'rxjs';
+import { AppConfig } from '../configs/app.config';
+// import { LocalizeRouterService } from 'localize-router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,30 +11,47 @@ import { Observable } from 'rxjs';
 export class TranslateAppService {
   private _locale: string;
   private _lang: string;
-  // Localedate is the locale string used for dateFormatPipe: it has to be loaded if it doesn't exist, 
+  private _config: any;
+  
+  // Localedate is the locale string used for dateFormatPipe: it has to be loaded if it doesn't exist (at init), 
   // then if we change the language it has to be changed only after registerLocaleData changes
   private _localeDate: string;
 
-  // if you add langs, don't forget to add it in function registerLocaleData > webpackInclude
-  private settings: any = {
-    langs:['en', 'fr', 'nl'], defaultLocale:'en-GB'
-  }
-  constructor(private translate: TranslateService) {
-   
+
+  constructor(private translate: TranslateService ) {
+      this._config = AppConfig.i18n;
   }
 
-  public initTranslate() {
-    if (localStorage.getItem('appLocale')) {
-      this._locale = localStorage.getItem('appLocale');
-    }
-    else {
-      this._locale = this.settings.defaultLocale;
-    }
+  public setDefault(langData) {
+    this.translate.setDefaultLang(langData.code);
+    this.translate.addLangs([langData.code]);
+    this._locale = langData.locale;
+    this._lang = langData.code
     if(!this._localeDate){
-      this._localeDate = this._locale;
+      this._localeDate = langData.code;
     }
-    this._lang = this.translate.currentLang = this._locale.substring(0, this._locale.indexOf('-'));
-    this.translate.setDefaultLang(this.translate.currentLang);
+  }
+
+  public changeLanguage(locale) {
+    let langData = this._config.availableLanguages.filter((lang: any)=> {
+      return lang.locale===locale
+    })[0];
+    this.translate.addLangs([langData.code]);
+    this._locale = langData.locale;
+    this._lang = langData.code;
+ 
+    this.use(langData.code).subscribe(() =>{
+      // to do: this.meta.setTag('og:locale', languageCode);
+      this.registerLocaleData(this._locale).then(() => {
+        this._localeDate = this._locale;
+      })
+    });
+
+  }
+
+
+  getBrowserLang(){
+    return this.translate.getBrowserLang();
   }
 
   public get locale() {
@@ -46,19 +65,6 @@ export class TranslateAppService {
     return this._localeDate;
   }
 
-  public changeLanguage(locale) {
-    localStorage.setItem('appLocale', locale);
-    this.setTranslate()
-  }
-  public setTranslate() {
-    this.initTranslate()
-    this.use(this.translate.currentLang).subscribe(res =>{
-      this.registerLocaleData(this._locale).then(res => {
-        this._localeDate = this._locale;
-        console.log(this.translate);
-      })
-    });
-  }
   public use(lang: string): Observable<{}> {
     return this.translate.use(lang);
   }

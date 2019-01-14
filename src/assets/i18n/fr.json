@@ -8,5 +8,7 @@
   "terms": {
     "title":"Conditions",
     "text":"Texte long et ennuyeux<br>liloulol"
-  }
+  },
+  "ROUTES.about": "a-propos",
+  "ROUTES.terms": "termes"
  }

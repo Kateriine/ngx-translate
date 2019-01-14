@@ -15,7 +15,6 @@ export class DateFormatPipe extends DatePipe implements PipeTransform {
     super(translate.currentLang);
   }
   public transform(value: any): any {
-    // this.formatted = super.transform(value, 'dd MMMM yyyy', undefined, this.translateApp.locale);
     this.formatted = super.transform(value, 'dd MMMM yyyy', undefined, this.translateApp.localeDate);
 
     return this.formatted;

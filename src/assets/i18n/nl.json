@@ -8,5 +8,7 @@
   "terms": {
     "title":"Voorwaarding",
     "text":"Long and boring text<br>liloulol"
-  }
+  },
+  "ROUTES.about": "over-ons",
+  "ROUTES.terms": "algemene voorwaarden"
  }
